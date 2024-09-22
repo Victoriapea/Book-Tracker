@@ -14,7 +14,7 @@ function App() {
     <Provider store={store}>
       <Router>
         <Layout>
-          <div className="px-32">
+          <div className="px-20 md:px-32 ">
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/books" element={<BookList />} />

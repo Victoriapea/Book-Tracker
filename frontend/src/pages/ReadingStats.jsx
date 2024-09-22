@@ -12,7 +12,7 @@ const ReadingStats = () => {
     const fetchStats = async () => {
       try {
         if (!token) {
-          return navigate("/"); // Redirection si l'utilisateur n'est pas connecté
+          return navigate("/"); // Redirection si user pas connecté
         }
         const response = await axios.get(
           "http://localhost:5000/api/books/stats",
@@ -43,8 +43,8 @@ const ReadingStats = () => {
 
   return (
     <div className="flex flex-col items-center mt-20 p-8 bg-white shadow-lg rounded-lg">
-      <h2 className="text-5xl font-medium mb-7">Suivi de Lecture</h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-md">
+      <h2 className="text-3xl text-center lg:text-5xl font-medium mb-7">Suivi de Lecture</h2>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full max-w-xl">
         <div className="p-4 bg-blue-100 rounded-lg shadow">
           <h3 className="font-medium">Total de livres</h3>
           <p className="text-2xl font-bold">{stats.totalBooks}</p>
