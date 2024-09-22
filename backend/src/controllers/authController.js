@@ -2,34 +2,36 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import User from "../models/User.js";
 
-export const register = (req, res) => {
+export const register = async (req, res) => {
   const { username, email, password } = req.body;
 
-  bcrypt
-    .hash(password, 10)
-    .then((hashedPassword) => {
-      const newUser = new User({
-        username,
-        email,
-        password: hashedPassword,
-      });
+  try {
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return res.status(400).json({ message: "L'email existe déjà." });
+    }
 
-      return newUser.save();
-    })
-    .then((savedUser) => {
-      const token = jwt.sign({ id: savedUser._id }, process.env.JWT_SECRET);
-      res.status(201).json({
-        token,
-        user: {
-          id: savedUser._id,
-          username: savedUser.username,
-          email: savedUser.email,
-        },
-      });
-    })
-    .catch((err) => {
-      res.status(400).json({ message: err.message });
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const newUser = new User({
+      username,
+      email,
+      password: hashedPassword,
     });
+
+    const savedUser = await newUser.save();
+    const token = jwt.sign({ id: savedUser._id }, process.env.JWT_SECRET);
+    
+    return res.status(201).json({
+      token,
+      user: {
+        id: savedUser._id,
+        username: savedUser.username,
+        email: savedUser.email,
+      },
+    });
+  } catch (err) {
+    return res.status(500).json({ message: err.message });
+  }
 };
 
 export const login = (req, res) => {
@@ -45,7 +47,6 @@ export const login = (req, res) => {
         if (!isMatch) {
           return res.status(400).json({ message: "Mot de passe incorrect" });
         }
-
         const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
 
         res.json({
