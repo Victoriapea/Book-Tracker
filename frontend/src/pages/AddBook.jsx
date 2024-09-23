@@ -69,7 +69,8 @@ const AddBook = () => {
               onChange={handleChange}
               placeholder="Entrez le titre du livre"
               required
-              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-border"
+              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none
+              focus:ring-2 focus:ring-border"
             />
           </div>
           <div>
@@ -83,7 +84,8 @@ const AddBook = () => {
               onChange={handleChange}
               placeholder="Entrez le nom de l'auteur"
               required
-              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-border"
+              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none
+              focus:ring-2 focus:ring-border"
             />
           </div>
           <div>
@@ -95,7 +97,8 @@ const AddBook = () => {
               name="status"
               value={book.status}
               onChange={handleChange}
-              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-border"
+              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none
+              focus:ring-2 focus:ring-border"
             >
               <option value="À lire">À lire</option>
               <option value="En cours">En cours</option>
@@ -112,7 +115,8 @@ const AddBook = () => {
               name="startDate"
               value={book.startDate}
               onChange={handleChange}
-              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-border"
+              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none
+              focus:ring-2 focus:ring-border"
             />
           </div>
           <div>
@@ -125,7 +129,8 @@ const AddBook = () => {
               name="endDate"
               value={book.endDate}
               onChange={handleChange}
-              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-border"
+              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none
+              focus:ring-2 focus:ring-border"
             />
           </div>
 
@@ -133,7 +138,8 @@ const AddBook = () => {
 
           <button
             type="submit"
-            className="w-full py-2 bg-button text-white rounded-lg hover:bg-border transition duration-300"
+            className="w-full py-2 bg-button text-white rounded-lg hover:bg-border
+            transition duration-300"
           >
             Ajouter
           </button>
