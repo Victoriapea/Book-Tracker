@@ -41,52 +41,75 @@ const BookItem = ({ book, onEdit, onDelete }) => (
   </div>
 );
 
-const EditBookForm = ({ book, onSave, dateError }) => (
-  <div className="flex flex-col space-y-2">
-    <input
-      type="text"
-      value={book.title}
-      onChange={(e) => onSave({ ...book, title: e.target.value })}
-      className="border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-border"
-      placeholder="Titre"
-    />
-    <input
-      type="text"
-      value={book.author}
-      onChange={(e) => onSave({ ...book, author: e.target.value })}
-      className="border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-border"
-      placeholder="Auteur"
-    />
-    <select
-      value={book.status}
-      onChange={(e) => onSave({ ...book, status: e.target.value })}
-      className="border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-border"
-    >
-      <option value="À lire">À lire</option>
-      <option value="En cours">En cours</option>
-      <option value="Terminé">Terminé</option>
-    </select>
-    <input
-      type="date"
-      value={book.startDate ? book.startDate.slice(0, 10) : ""}
-      onChange={(e) => onSave({ ...book, startDate: e.target.value })}
-      className="border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-border"
-    />
-    <input
-      type="date"
-      value={book.endDate ? book.endDate.slice(0, 10) : ""}
-      onChange={(e) => onSave({ ...book, endDate: e.target.value })}
-      className="border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-border"
-    />
-    {dateError && <p className="text-red-500">{dateError}</p>}
-    <button
-      onClick={() => onSave(book)}
-      className="text-white bg-green-600 hover:bg-green-500 transition duration-300 rounded-lg py-2"
-    >
-      Enregistrer
-    </button>
-  </div>
-);
+const EditBookForm = ({ book, onSave, dateError }) => {
+  const [localBook, setLocalBook] = useState({ ...book });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setLocalBook((prevBook) => ({
+      ...prevBook,
+      [name]: value,
+    }));
+  };
+
+  return (
+    <div className="flex flex-col space-y-2">
+      <input
+        type="text"
+        name="title"
+        value={localBook.title}
+        onChange={handleChange}
+        className="border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2
+        focus:ring-border"
+        placeholder="Titre"
+      />
+      <input
+        type="text"
+        name="author"
+        value={localBook.author}
+        onChange={handleChange}
+        className="border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 
+        focus:ring-border"
+        placeholder="Auteur"
+      />
+      <select
+        name="status"
+        value={localBook.status}
+        onChange={handleChange}
+        className="border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 
+        focus:ring-border"
+      >
+        <option value="À lire">À lire</option>
+        <option value="En cours">En cours</option>
+        <option value="Terminé">Terminé</option>
+      </select>
+      <input
+        type="date"
+        name="startDate"
+        value={localBook.startDate ? localBook.startDate.slice(0, 10) : ""}
+        onChange={handleChange}
+        className="border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 
+        focus:ring-border"
+      />
+      <input
+        type="date"
+        name="endDate"
+        value={localBook.endDate ? localBook.endDate.slice(0, 10) : ""}
+        onChange={handleChange}
+        className="border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 
+        focus:ring-border"
+      />
+      {dateError && <p className="text-red-500">{dateError}</p>}
+      <button
+        onClick={() => onSave(localBook)}
+        className="text-white bg-green-600 hover:bg-green-500 transition duration-300 
+        rounded-lg py-2"
+      >
+        Enregistrer
+      </button>
+    </div>
+  );
+};
 
 const BookList = () => {
   const dispatch = useDispatch();
